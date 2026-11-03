@@ -48,9 +48,23 @@ class ProjectTests(unittest.TestCase):
         link = subprocess.run([str(command), 'banner', '--url', 'ASH'], env=self.env,
                               cwd='/tmp', check=True, text=True, capture_output=True)
         self.assertEqual(link.stdout.strip(), 'https://taag.fun/#f=ANSI+Shadow&t=ASH')
+        preset = subprocess.run([str(command), 'prompt', '--print-config'], env=self.env,
+                                cwd='/tmp', check=True, text=True, capture_output=True)
+        self.assertIn('[directory]', preset.stdout)
+        # Enabling the optional prompt and uninstalling the entire application
+        # must remove both startup hooks while retaining the user's theme.
+        fake_starship = self.home / '.local/bin/starship'
+        fake_starship.write_text('#!/bin/sh\nexit 0\n')
+        fake_starship.chmod(0o755)
+        prompt_env = dict(self.env, PATH=str(fake_starship.parent) + os.pathsep + os.environ['PATH'])
+        subprocess.run([str(command), 'prompt', '--install'], env=prompt_env,
+                       cwd='/tmp', check=True, capture_output=True)
+        self.assertIn('# >>> pokemon-welcome prompt >>>', rc.read_text())
         self.install('--uninstall')
         self.assertFalse(command.exists())
         self.assertNotIn('# >>> pokemon-welcome >>>', rc.read_text())
+        self.assertNotIn('# >>> pokemon-welcome prompt >>>', rc.read_text())
+        self.assertTrue((self.home / 'config/pokemon-welcome/starship.toml').exists())
         self.assertIn('export KEEP_ME=yes', rc.read_text())
         self.assertFalse((self.home / 'data/pokemon-welcome').exists())
 

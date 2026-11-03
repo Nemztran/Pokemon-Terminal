@@ -182,12 +182,16 @@ def info_panel(width, max_rows, pk_id, name, ptype):
 
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] == 'prompt':
+        from .prompt import main as prompt_main
+        return prompt_main(sys.argv[2:])
     if len(sys.argv) > 1 and sys.argv[1] == 'banner':
         from .banner import main as banner_main
         return banner_main(sys.argv[2:])
     if '--help' in sys.argv or '-h' in sys.argv:
         print('pokemon-welcome: offline Pokémon terminal greeting\n'
               'pokemon-welcome banner --help: generate or import a custom banner\n'
+              'pokemon-welcome prompt --help: enable a directory/Git prompt with Starship\n'
               'Configure: POKEMON_TRAINER, POKEMON_HIDE_WELCOME, POKEMON_HIDE_HOST, XDG_STATE_HOME, XDG_CONFIG_HOME')
         return
     if not sys.stdout.isatty():

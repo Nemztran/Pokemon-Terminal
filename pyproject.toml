@@ -27,4 +27,4 @@ pokemon-welcome = "pokemon_welcome.__main__:main"
 include = ["pokemon_welcome*"]
 
 [tool.setuptools.package-data]
-pokemon_welcome = ["assets/*.txt", "assets/*.png", "assets/pokemon-cache/*/*.png"]
+pokemon_welcome = ["assets/*.txt", "assets/*.toml", "assets/*.png", "assets/pokemon-cache/*/*.png"]

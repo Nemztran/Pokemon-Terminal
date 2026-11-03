@@ -105,6 +105,49 @@ export POKEMON_TRAINER="YourName"
 
 Open a new terminal to apply the change.
 
+## Directory and Git prompt
+
+Enable an optional [Starship](https://starship.rs/) prompt with connected pastel
+segments: **username → current directory → Git branch/status → HH:MM**. The left
+edge is rounded and the right edge ends in an arrow. Branch names update as you
+switch branches; the working directory updates as you navigate.
+Git status shows `?N` for untracked files, `~N` for modified files, and `+N` for
+staged files.
+
+Install Starship using its [official instructions](https://starship.rs/guide/#installation),
+then reinstall this project to get the new command:
+
+```bash
+bash install.sh
+~/.local/bin/pokemon-welcome prompt --install --shell bash
+# For Zsh: ~/.local/bin/pokemon-welcome prompt --install --shell zsh
+```
+
+Open a new terminal to activate it. This feature is opt-in: installing the greeting
+alone keeps your existing prompt. It does not change the banner, Pokémon, or
+terminal font. The theme is based on Starship's
+[Pastel Powerline preset](https://starship.rs/presets/pastel-powerline.html).
+
+Powerline separators and the Git icon require a compatible font, such as one
+from [Nerd Fonts](https://www.nerdfonts.com/). If icons appear as rectangles, choose
+a compatible font in the terminal that displays the prompt. VS Code's integrated
+terminal has its own `terminal.integrated.fontFamily` setting. Changing a terminal
+font also affects how the greeting looks; this installer leaves that choice to you.
+
+The command backs up the shell startup file, uses a separate theme at
+`${XDG_CONFIG_HOME:-~/.config}/pokemon-welcome/starship.toml`, and preserves an
+existing Starship initialization. Your global `starship.toml` is untouched.
+Reinstalling preserves edits to the separate theme.
+
+To inspect the bundled theme or remove the prompt while keeping the greeting:
+
+```bash
+~/.local/bin/pokemon-welcome prompt --print-config
+~/.local/bin/pokemon-welcome prompt --uninstall
+```
+
+Open a new terminal after uninstalling to restore your previous prompt.
+
 ## Uninstall
 
 From the project folder:

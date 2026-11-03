@@ -43,6 +43,8 @@ def main():
     home = Path.home()
     zsh_rc = Path(os.environ.get('ZDOTDIR') or home) / '.zshrc'
     if args.uninstall:
+        from pokemon_welcome.prompt import uninstall as uninstall_prompt
+        uninstall_prompt()
         for rc in dict.fromkeys((home / '.bashrc', zsh_rc)):
             if rc.exists():
                 update_rc(rc, '')

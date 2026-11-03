@@ -1,0 +1,55 @@
+# Based on Starship Pastel Powerline: https://starship.rs/presets/pastel-powerline.html
+# Connected Powerline segments, rounded left edge and arrow right edge.
+add_newline = false
+format = """
+[](#9A348E)\
+$username\
+[](fg:#9A348E bg:#DA627D)\
+$directory\
+[](fg:#DA627D bg:#FCA17D)\
+$git_branch\
+$git_status\
+[](fg:#FCA17D bg:#33658A)\
+$time\
+[](#33658A) \
+"""
+
+[username]
+show_always = true
+style_user = "fg:#fff4fa bg:#9A348E"
+style_root = "fg:#ffffff bg:#b94b64"
+format = "[$user ]($style)"
+
+[directory]
+truncation_length = 1
+truncation_symbol = ""
+truncate_to_repo = true
+style = "fg:#fff4fa bg:#DA627D"
+read_only = ""
+read_only_style = "fg:#fff0c2 bg:#DA627D"
+format = "[ $path]($style)[$read_only]($read_only_style)[ ]($style)"
+
+[git_branch]
+symbol = " "
+style = "fg:#392c35 bg:#FCA17D"
+format = "[ $symbol$branch ]($style)"
+
+[git_status]
+style = "fg:#392c35 bg:#FCA17D"
+format = "([ $all_status$ahead_behind]($style))"
+untracked = "?$count "
+modified = "~$count "
+staged = "+$count "
+conflicted = "!$count "
+ahead = "↑$count "
+behind = "↓$count "
+diverged = "↑$ahead_count ↓$behind_count "
+stashed = "≡$count "
+renamed = "»$count "
+deleted = "-$count "
+
+[time]
+disabled = false
+time_format = "%H:%M"
+style = "fg:#e0f3ff bg:#33658A"
+format = "[ ◷ $time]($style)"
